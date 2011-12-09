@@ -51,8 +51,8 @@ Please feel free to report any bugs and issues to me, my email is: martin@lazaro
 # Source Code Repository
 --------------------------------------
 Repositories are located at 
-  https://github.com/mlazarov/rockmongo
-  git://github.com/mlazarov/rockmongo.git
+* https://github.com/mlazarov/rockmongo
+* git://github.com/mlazarov/rockmongo.git
 
 
 # Contributing
