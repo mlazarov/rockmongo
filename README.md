@@ -6,7 +6,7 @@ RockMongo is a MongoDB administration tool, written in PHP 5, very easy to insta
 # Installation
 --------------------------------------
 1. Install PHP runtime environment if you don't have one yet, such like Apache Httpd, Nginx ...
-2. Download the package from http://code.google.com/p/rock-php/downloads/list
+2. Download the package from https://github.com/mlazarov/rockmongo/zipball/master
 3. Unzip the files into your disk, under root of your site
 4. Open the config.php with your convenient editor, change host, port, admins and so on to yours
 5. Visit the index.php in your browser, for example: http://localhost/rockmongo/index.php
