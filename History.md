@@ -1,3 +1,6 @@
+v1.1.0 - 2011-12-09
+ * Adding rockmongo to github
+ 
 v1.1.0 - 2011-04-25
  * Change datezone utc to UTC
  * Fix db.getcollections() exception throwing on mongos
