@@ -1,9 +1,9 @@
-# Introduction
+## Introduction
 --------------------------------------
 RockMongo is a MongoDB administration tool, written in PHP 5, very easy to install and use.
 
 
-# Installation (Using ZIP file)
+## Installation (Using ZIP file)
 --------------------------------------
 1. Install PHP runtime environment if you don't have one yet, such like Apache Httpd, Nginx ...
 2. Download the package from https://github.com/mlazarov/rockmongo/zipball/master
@@ -13,7 +13,7 @@ RockMongo is a MongoDB administration tool, written in PHP 5, very easy to insta
 6. Login with admin username and password, which is set "admin" and "admin" as default
 7. Play with your MongoDBs!
 
-# Installation (Using GIT file)
+## Installation (Using GIT)
 --------------------------------------
 ```bash
 $ cd /var/www/html/
@@ -22,14 +22,15 @@ $ git clone git://github.com/mlazarov/rockmongo.git
 
 Then edit config.php, change host, port, admins and so on to yours
 
-# Upgrade from old version
+## Upgrade from old version
 --------------------------------------
 1.Copy all files excluding config.php to your old version directory
 2.Done!
 
 
-# Contributors
+## Contributors
 --------------------------------------
+
 iwind.liu <iwind.liu@gmail.com> Leader
 leblanc.simon <leblanc.simon@gmail.com> French translation
 Klaus Silveira <klaussilveira@gmail.com> Brazilian translation
@@ -39,7 +40,7 @@ Anton Zering <anton.zering@gmail.com> German translation
 Borda Juan Ignacio <juanignacioborda@gmail.com> Panels Layout
 
 
-# Thanks
+## Thanks
 --------------------------------------
 * Many thanks to led24.de for cute icons. 
 * Thank Michal Migurski(<mike-json@teczno.com>) for perfect Services_JSON class.
@@ -51,20 +52,22 @@ Borda Juan Ignacio <juanignacioborda@gmail.com> Panels Layout
 * Thank Klaus Silveira for Brazilian translation
 * Thank leblanc.simon for French translation
 
-# Bugs & Issues
+## Bugs & Issues
 --------------------------------------
 Please feel free to report any bugs and issues to me, my email is: martin@lazarov.bg .
 
 
-# Source Code Repository
+## Source Code Repository
 --------------------------------------
 Repositories are located at: 
+
 * https://github.com/mlazarov/rockmongo
 * git://github.com/mlazarov/rockmongo.git
 
 
-# Contributing
+## Contributing
 --------------------------------------
 Somebody who want to contribute to the project, may help us by doing these:
+
 * Supply us a logo in size:75 X 75
 * Translate messages from English to other languages (you can see them in app/langs directory)
