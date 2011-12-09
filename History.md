@@ -1,7 +1,9 @@
 v1.1.0 - 2011-12-09
+===================
  * Adding rockmongo to github
  
 v1.1.0 - 2011-04-25
+===================
  * Change datezone utc to UTC
  * Fix db.getcollections() exception throwing on mongos
  * Add new page size:100, 200
@@ -9,6 +11,7 @@ v1.1.0 - 2011-04-25
  * Plug-in system improvement
 
 v1.1.0(beta) - 2011-04-17
+===================
  * Upgrade Notice
      * from 1.0.x to v1.1.0: if you will not use new features, just overwrite files, excluding config.php, that's all; Or you should re-configure the system
  * *Implement basic theme feature*
@@ -27,6 +30,7 @@ v1.1.0(beta) - 2011-04-17
  * Support numberic `_`id string
 
 v1.0.12 - 2011-03-08
+===================
  * Fix date format in tooltip 
  * Fix MongoCursor->fields() undefined error
  * Convert unicode in json to utf-8 when editing 
@@ -40,6 +44,7 @@ v1.0.12 - 2011-03-08
  * Fix records count in left bar when no data in the collection
 
 v1.0.11 - 2011-01-09
+===================
  * Add true, false and null to allowed PHP codes in saving data
  * Highlight current collection in left menu when it reload
  * Support JSON format in inserting and updating
@@ -52,6 +57,7 @@ v1.0.11 - 2011-01-09
  * When host is unable to connect, you can choose another host
 
 v1.0.10 - 2010-11-16
+===================
   * Added docblock comments to translation files, updated brazilian translation, 
     updated english translation, created additional localization variables (contato)
   * Convert \uxxxx in JSON to UTF-8 chars
@@ -64,6 +70,7 @@ v1.0.10 - 2010-11-16
   * Fix field selection bug when it's in an array list 
 
 v1.0.9 - 2010-10-26
+===================
  * replace eval() with safer VarEval class
  * fix records sorting bug
  * support query in json format
@@ -74,6 +81,7 @@ v1.0.9 - 2010-10-26
  * query history: in config.php set the feature to on
 
 v1.0.8 - 2010-09-14
+===================
  * Make operations on single field more easily, now you can update, rename, remove, 
    clear (set to null), query, create indexes on a field, just click field name in 
    record to get surprise
@@ -85,10 +93,12 @@ v1.0.8 - 2010-09-14
  * Shorten long text, and then you click "..." to see full text
 
 v1.0.7.r87 - 2010-09-05
+===================
  * fix hints bug
  * some slight GUI changes
 
 v1.0.7 - 2010-09-04
+===================
  * Add more collection statistics with command {top:1}
  * Add full processlist, connections is included
  * Expend and collapse single record
@@ -100,12 +110,14 @@ v1.0.7 - 2010-09-04
    * Keep record operations always displayed
 
 v1.0.6 - 2010-08-29
+===================
  * improved GUI
  * I18N, English, chinese and japanese is supported
  * More replication information
  * connection to mongos is supported
 
 v1.0.5 - 2010-8-20
+===================
  * NOTICE:move configurations from index.php to config.php
  * drop all collections in a db
  * clear all collections in a db
@@ -117,14 +129,17 @@ v1.0.5 - 2010-8-20
  * Master/Slave information
 
 v1.0.4.r39 - 2010-08-12
+===================
  * fix pagination problem 
  * check unauthorized exception 
  * fix issue when use double quotes in query
 
 v1.0.4.r37 - 2010-08-04
+===================
  * fix bugs when using non-standard _id
 
 v1.0.4.r34
+===================
 * change frameset to iframe
 * switch hosts without re-login
 * add manual links
@@ -132,6 +147,7 @@ v1.0.4.r34
 * fix bugs
 
 v1.0.3.r24
+===================
 * database profiling
 * database user management
 * fix jQuery path error in some cases
@@ -142,6 +158,7 @@ v1.0.3.r24
 * explain query
 
 v1.0.2 - 2010-07-17
+===================
 * server statistics, databases 
 * execute command and code
 * database statistics and drop
@@ -149,9 +166,11 @@ v1.0.2 - 2010-07-17
 * remove some unused php files
 
 v1.0.1 - 2010-07-15
+===================
 * switch PHP Array and JSON data format
 * choose record size per page
 * switch data to text in textarea, so we can copy it easily
 
 v1.0 - 2010-07-13
+===================
 * basic version
