@@ -633,6 +633,7 @@ class CollectionController extends BaseController {
 	
 	/** download file in GridFS **/
 	public function doDownloadFile() {
+        global $mime_types;
 		$this->db = xn("db");
 		$this->collection = xn("collection");
 		$this->id = xn("id");
