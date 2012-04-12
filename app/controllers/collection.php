@@ -156,7 +156,18 @@ class CollectionController extends BaseController {
 		if (!is_array($this->queryFields)) {
 			$this->queryFields = array();
 		}
-		
+
+		$this->useFreeform = x("use_freeform");
+		$this->freeformRaw = x("freeform");
+
+		if (isset($this->useFreeform) && $this->useFreeform == 'yes' && isset($this->freeformRaw) && $this->freeformRaw != '') {
+			$freeformTokenized = preg_split('/,\s*/', $this->freeformRaw);
+
+			if ($freeformTokenized[0] != '') {
+				$this->queryFields = array_merge($this->queryFields, $freeformTokenized);
+			}
+		}
+
 		$this->indexFields = $db->selectCollection($this->collection)->getIndexInfo();
 		$this->recordsCount = $db->selectCollection($this->collection)->count();
 		foreach ($this->indexFields as $index => $indexField) {
@@ -634,7 +645,7 @@ class CollectionController extends BaseController {
 	
 	/** download file in GridFS **/
 	public function doDownloadFile() {
-        global $mime_types;
+		global $mime_types;
 		$this->db = xn("db");
 		$this->collection = xn("collection");
 		$this->id = xn("id");

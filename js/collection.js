@@ -130,7 +130,7 @@ function showQueryFields(link) {
  */
 function closeQueryFields() {
 	$("#query_fields_list").hide();
-	$("#query_fields_count").html(countChecked("query_fields[]"));
+	$("#query_fields_count").html(countChecked("query_fields[]") + countFreeform());
 }
 
 /**
@@ -163,6 +163,28 @@ function countChecked(name) {
 		}
 	}
 	return count;
+}
+
+/**
+ * count freeform fields
+ */
+function countFreeform() {
+	var box = document.getElementsByName('use_freeform');
+	var regexp = /,\s*/g;
+	var freeform = document.getElementsByName('freeform');
+	var matches;
+
+	if (box[0].checked) {
+		matches = freeform[0].value.match(regexp);
+		if (matches) {
+			return matches.length + 1;
+		}
+		else if (freeform[0].value != '') {
+			return 1;
+		}
+	}
+
+	return 0;
 }
 
 /**
