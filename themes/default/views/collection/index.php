@@ -90,6 +90,7 @@ currentFields.push("<?php h(addslashes($field));?>");
 				<?php if($field=="_id"): ?>disabled="disabled"<?php endif?>
 			/> <?php h($field); ?></label></li>
 	<?php endforeach; ?>
+		<li><input type="checkbox" name="use_freeform" value="yes" <?php if ($useFreeform == 'yes' && isset($freeformRaw)): ?>checked="checked"<?php endif; ?> /><input name="freeform" type="text" <?php if (isset($freeformRaw)): ?>value="<?= $freeformRaw; ?>"<?php endif; ?>/></li>
 	</ul>
 </div>
 <div id="query_hints_list" class="fieldsmenu">

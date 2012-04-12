@@ -151,11 +151,23 @@ class CollectionController extends BaseController {
 		//read fields from collection
 		import("models.MCollection");
 		$this->nativeFields = MCollection::fields($db, $this->collection);
+
 		$this->queryFields = x("query_fields");
 		if (!is_array($this->queryFields)) {
 			$this->queryFields = array();
 		}
-		
+
+		$this->useFreeform = x("use_freeform");
+		$this->freeformRaw = x("freeform");
+
+		if (isset($this->useFreeform) && $this->useFreeform == 'yes' && isset($this->freeformRaw) && $this->freeformRaw != '') {
+			$freeformTokenized = preg_split('/,\s*/', $this->freeformRaw);
+
+			if ($freeformTokenized[0] != '') {
+				$this->queryFields = array_merge($this->queryFields, $freeformTokenized);
+			}
+		}
+
 		$this->indexFields = $db->selectCollection($this->collection)->getIndexInfo();
 		$this->recordsCount = $db->selectCollection($this->collection)->count();
 		foreach ($this->indexFields as $index => $indexField) {
