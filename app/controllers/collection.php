@@ -151,6 +151,7 @@ class CollectionController extends BaseController {
 		//read fields from collection
 		import("models.MCollection");
 		$this->nativeFields = MCollection::fields($db, $this->collection);
+		sort($this->nativeFields);
 		$this->queryFields = x("query_fields");
 		if (!is_array($this->queryFields)) {
 			$this->queryFields = array();
