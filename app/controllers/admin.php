@@ -77,7 +77,7 @@ class AdminController extends BaseController {
 	public function doChangeHost() {
 		$index = xi("index");
 		MUser::userInSession()->changeHost($index);
-		$this->redirect("admin.index");
+		$this->redirect("admin.index", array( "host" => $index ));
 	}
 	
 	/**

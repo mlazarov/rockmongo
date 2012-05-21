@@ -50,7 +50,7 @@ class LoginController extends BaseController {
 			setcookie("ROCK_LANG", x("lang"), time() + 365 * 86400);
 			
 			//jump to admin page
-			$this->redirect("admin.index");
+			$this->redirect("admin.index", array( "host" => $this->hostIndex ));
 		}
 		else {
 			$this->display();

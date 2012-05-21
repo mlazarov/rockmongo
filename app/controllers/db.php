@@ -179,22 +179,21 @@ class DbController extends BaseController {
 				}
 				unset($cursor);
 			}
-			
 			if (x("can_download")) {
-				$prefix = "rockmongo-export-" . urlencode($this->db) . "-" . time();
-				
+				$prefix = "mongo-" . urlencode($this->db) . "-" . date("Ymd-His");
+			
 				//gzip
 				if (x("gzip")) {
 					ob_end_clean();
 					header("Content-type: application/x-gzip");
-					header("Content-Disposition: attachment; filename=\"{$prefix}.gz\")"); 
+					header("Content-Disposition: attachment; filename=\"{$prefix}.gz\""); 
 					echo gzcompress($this->contents, 9);
 					exit();
 				}
 				else {
 					ob_end_clean();
 					header("Content-type: application/octet-stream");
-					header("Content-Disposition: attachment; filename=\"{$prefix}.js\")");
+					header("Content-Disposition: attachment; filename=\"{$prefix}.js\"");
 					echo $this->contents;
 					exit();
 				}
@@ -209,23 +208,64 @@ class DbController extends BaseController {
 		$this->db = xn("db");
 		
 		if ($this->isPost()) {
+			$format = x("format");
 			if (!empty($_FILES["json"]["tmp_name"])) {
 				$tmp = $_FILES["json"]["tmp_name"];
 				
 				//read file by it's format
 				$body = "";
-				if (preg_match("/\.gz$/", $_FILES["json"]["name"])) {
+				if (preg_match("/\\.gz$/", $_FILES["json"]["name"])) {
 					$body = gzuncompress(file_get_contents($tmp));
 				}
 				else {
 					$body = file_get_contents($tmp);
 				}
 				
-				$ret = $this->_mongo->selectDB($this->db)->execute('function (){ ' . $body . ' }');
-				$this->message = "All data import successfully.";
+				//check format
+				
+				$ret = array("ok" => 0);
+				if ($format == "js") {
+					$ret = $this->_mongo->selectDB($this->db)->execute('function (){ ' . $body . ' }');
+					
+					if (!$ret["ok"]) {
+						$this->error = $ret["errmsg"];
+					}
+					else {
+						$this->message = "All data import successfully.";
+					}
+				}
+				else {
+					$collection = trim(xn("collection"));
+					if ($collection === "") {
+						$this->error2 = "Please enter the collection name";
+					}
+					else {
+						$lines = explode("\n", $body);
+						foreach ($lines as $line) {
+							$line = trim($line);
+							if ($line) {
+								$ret = $this->_mongo->selectDB($this->db)->execute('function (c, o){ o=eval("(" + o + ")"); db.getCollection(c).insert(o); }', array( $collection, $line ));
+							}
+						}
+						
+						
+						if (!$ret["ok"]) {
+							$this->error2 = $ret["errmsg"];
+						}
+						else {
+							$this->message2 = "All data import successfully.";
+						}
+					}
+				}
+				
 			}
 			else {
-				$this->error = "Either no file input or file is too large to upload.";
+				if ($format == "js") {
+					$this->error = "Either no file input or file is too large to upload.";
+				}
+				else {
+					$this->error2 = "Either no file input or file is too large to upload.";
+				}
 			}
 		}
 		

@@ -1,3 +1,18 @@
+v1.1.1 - 2011-05-04 (from official release: rockmongo.com)
+* Russian translation, thanks to Станислав Воробьёв <stanislav.vorobyev@gmail.com>
+* Fix host switch bug
+* Fix date_default_timezone_get() warning
+* new French translation
+* improve importing and exporting
+* Fix broken on sharding collections
+* add $MONGO["servers"][$i]["mongo_options"] option, see http://code.google.com/p/rock-php/wiki/configuration#mongo_options
+* fix mongo_timeout issue
+* JSON format importing
+
+v1.1.0-1 2012-04-12
+ * Fixing mime-type problem (@jpnance)
+ * Added fields sorting (@jpnance)
+
 v1.1.0 - 2011-12-09
 ===================
  * Adding rockmongo to github

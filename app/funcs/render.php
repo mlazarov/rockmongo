@@ -132,7 +132,7 @@ function render_db_menu($dbName) {
 		array( "action" => "server.command", "params" => array("db"=>$dbName), "name" => rock_lang("command") ),
 		array( "action" => "server.execute", "params" => array("db"=>$dbName), "name" => rock_lang("execute") ),
 		array( "action" => "db.dbTransfer", "params" => array("db"=>$dbName), "name" => rock_lang("transfer") ),
-		array( "action" => "db.dbExport", "params" => array("db"=>$dbName), "name" => rock_lang("export") ),
+		array( "action" => "db.dbExport", "params" => array("db"=>$dbName, "can_download"=>1), "name" => rock_lang("export"), "can_download" => 1 ),
 		array( "action" => "db.dbImport", "params" => array("db"=>$dbName), "name" => rock_lang("import") ),
 		array( "action" => "db.profile", "params" => array("db"=>$dbName), "name" => rock_lang("profile")),
 		array( "action" => "db.repairDatabase", "params" => array("db"=>$dbName), "name" => rock_lang("repair"), "attr.onclick" => "return window.confirm('" . rock_lang("repairdbmsg") . " {$dbName}?');" ),
@@ -202,20 +202,23 @@ function render_db_menu($dbName) {
  * @since 1.1.0
  */
 function render_collection_menu($dbName, $collectionName) {
+	$params = xn();
+	$exportParams = $params;
+	$exportParams["can_download"] = 1;
 	$menuItems = array(
-		array( "action" => "collection.createRow", "params" => xn(), "name" => rock_lang("insert") ),
-		array( "action" => "collection.clearRows", "params" => xn(), "name" => rock_lang("clear"), "attr.onclick" => "return window.confirm('Are you sure to delete all records in collection \'" . $collectionName . "\'?');" ),
+		array( "action" => "collection.createRow", "params" => $params, "name" => rock_lang("insert") ),
+		array( "action" => "collection.clearRows", "params" => $params, "name" => rock_lang("clear"), "attr.onclick" => "return window.confirm('Are you sure to delete all records in collection \\'" . $collectionName . "\\'?');" ),
 		array( "action" => "#", "params" =>  array(), "name" => rock_lang("new_field"), "attr.onclick" => "fieldOpNew();return false;" ),
-		array( "action" => "collection.collectionStats", "params" => xn(), "name" => rock_lang("statistics") ),
-		array( "action" => "collection.collectionExport", "params" => xn(), "name" => rock_lang("export") ),
-		array( "action" => "collection.collectionImport", "params" => xn(), "name" => rock_lang("import") ),
-		array( "action" => "collection.collectionProps", "params" => xn(), "name" => rock_lang("properties") ),
-		array( "action" => "collection.collectionIndexes", "params" => xn(), "name" => rock_lang("indexes") ),
-		array( "action" => "collection.collectionRename", "params" => xn(), "name" => rock_lang("rename") ),
-		array( "action" => "collection.collectionDuplicate", "params" => xn(), "name" => rock_lang("duplicate") ),
-		array( "action" => "collection.collectionTransfer", "params" => xn(), "name" => rock_lang("transfer") ),
-		array( "action" => "collection.collectionValidate", "params" => xn(), "name" => rock_lang("validate") ),
-		array( "action" => "collection.removeCollection", "params" => xn(), "name" => rock_lang("drop"), "onclick" => "return window.confirm('Are you sure to drop collection \'" . $collectionName . "\'?')" ),
+		array( "action" => "collection.collectionStats", "params" => $params, "name" => rock_lang("statistics") ),
+		array( "action" => "collection.collectionExport", "params" => $exportParams, "name" => rock_lang("export") ),
+		array( "action" => "collection.collectionImport", "params" => $params, "name" => rock_lang("import") ),
+		array( "action" => "collection.collectionProps", "params" => $params, "name" => rock_lang("properties") ),
+		array( "action" => "collection.collectionIndexes", "params" => $params, "name" => rock_lang("indexes") ),
+		array( "action" => "collection.collectionRename", "params" => $params, "name" => rock_lang("rename") ),
+		array( "action" => "collection.collectionDuplicate", "params" => $params, "name" => rock_lang("duplicate") ),
+		array( "action" => "collection.collectionTransfer", "params" => $params, "name" => rock_lang("transfer") ),
+		array( "action" => "collection.collectionValidate", "params" => $params, "name" => rock_lang("validate") ),
+		array( "action" => "collection.removeCollection", "params" => $params, "name" => rock_lang("drop"), "attr.onclick" => "return window.confirm('Are you sure to drop collection \\'" . $collectionName . "\\'?')" ),
 	);
 	
 	//plugin
@@ -347,6 +350,8 @@ function render_doc_menu($dbName, $collectionName, $docId, $docIndex) {
  */
 function render_select_data_types($name, $selected = null) {
 	$types = array (
+		"integer" => "Integer",
+		"long" => "Long",
 		"double" => "Double",
 		"string" => "String",
 		"boolean" => "Boolean",

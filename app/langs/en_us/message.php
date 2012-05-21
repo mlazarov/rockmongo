@@ -188,7 +188,7 @@ $message["switch_hosts"] = "Switch Hosts";
 /** About **/
 $message["about_content"] = '<strong class="big">RockMongo</strong> is a MongoDB administration tool, written in PHP 5.
 
-<p>See <a href="http://code.google.com/p/rock-php/wiki/rock_mongo" target="_blank">http://code.google.com/p/rock-php/wiki/rock_mongo</a> for more details.</p>
+<p>See <a href="http://rockmongo.com" target="_blank">http://rockmongo.com</a> for more details.</p>
 
 <p>If you have any questions, please send email to me: <a href="mailto:iwind.liu@gmail.com">iwind.liu@gmail.com</a> .</p>
 
@@ -197,7 +197,7 @@ $message["about_content"] = '<strong class="big">RockMongo</strong> is a MongoDB
 <li><a href="http://code.google.com/p/rock-php/wiki/configuration" target="_blank">Configuration</a></li>
 <li><a href="http://code.google.com/p/rock-php/wiki/plugin" target="_blank">Plug-in</a></li>
 <li><a href="http://code.google.com/p/rock-php/wiki/FAQ" target="_blank">FAQ</a></li>
-<li><a href="http://code.google.com/p/rock-php/wiki/Donation" target="_blank">Donation<br/><img src="http://www.paypal.com/en_US/i/btn/x-click-but04.gif"/></a></li>
+<li><a href="http://rockmongo.com/?action=donation" target="_blank">Donation<br/><img src="http://www.paypal.com/en_US/i/btn/x-click-but04.gif"/></a></li>
 <li><a href="http://code.google.com/p/rock-php/issues/list" target="_blank">Report an Issue</li>
 </ul></p>
 ';
@@ -205,6 +205,6 @@ $message["about_content"] = '<strong class="big">RockMongo</strong> is a MongoDB
 /** Login **/
 $message["loginandrock"] = "Login and Rock";
 $message["changeconfig"] = "You may change your username and password in config.php.";
-$message["rockmongocredits"] = "Powered by RockMongo v" . (ROCK_MONGO_VERSION) . ", <a href=\"http://code.google.com/p/rock-php/downloads/list\" target=\"_blank\">check out new version here.</a>";
+$message["rockmongocredits"] = "Powered by <a href=\"http://rockmongo.com\" target=\"_blank\">RockMongo</a> v" . (ROCK_MONGO_VERSION) . ", <a href=\"http://rockmongo.com/?action=downloads\" target=\"_blank\">check out new version here.</a>";
 
 ?>

@@ -184,13 +184,13 @@ $message["switch_hosts"] = "Cambiar Hosts";
 /** About **/
 $message["about_content"] = '<strong class="big">RockMongo</strong> es una herramienta de administraci&oacute;n para MongoDB, escrita en PHP 5.
 
-<p>Vea <a href="http://code.google.com/p/rock-php/wiki/rock_mongo" target="_blank">http://code.google.com/p/rock-php/wiki/rock_mongo</a> para m&aacute;s detalles.</p>
+<p>Vea <a href="http://rockmongo.com/" target="_blank">http://rockmongo.com</a> para m&aacute;s detalles.</p>
 
 <p>Si tiene alguna pregunta, por favor env&iacute;eme un correo electr&oacute;nico a: <a href="mailto:iwind.liu@gmail.com">iwind.liu@gmail.com</a> .</p>';
 
 /** Login **/
 $message["loginandrock"] = "Iniciar sesi&oacute;n and Rock";
 $message["changeconfig"] = "Debe cambiar su nombre de usuario y contrase&ntilde;a en el config.php.";
-$message["rockmongocredits"] = "Desarrollado por RockMongo v" . (ROCK_MONGO_VERSION) . ", <a href=\"http://code.google.com/p/rock-php/downloads/list\" target=\"_blank\">echa un vistazo a la nueva versi&oacute;n aqu&iacute;.</a>";
+$message["rockmongocredits"] = "Desarrollado por RockMongo v" . (ROCK_MONGO_VERSION) . ", <a href=\"http://rockmongo.com/?action=downloads\" target=\"_blank\">echa un vistazo a la nueva versi&oacute;n aqu&iacute;.</a>";
 
 ?>

@@ -367,38 +367,35 @@ function refreshRecord(id, index) {
 function switchDataType(div, type) {
 	div.find("[name='data_type']").val(type);
 	div.find("select[name='format']").hide();
+	
+	div.find(".value").hide();
+	div.find(".bool_value").hide();
+	div.find(".double_value").hide();
+	div.find(".integer_value").hide();
+	div.find(".long_value").hide();
+	div.find(".mixed_value").hide();
+	
 	switch(type) {
 		case "integer":
+			div.find(".integer_value").show();
+			break;
+		case "long":
+			div.find(".long_value").show();
+			break;
 		case "float":
 		case "double":
-			div.find(".value").hide();
-			div.find(".bool_value").hide();
 			div.find(".double_value").show();
-			div.find(".mixed_value").hide();
 			break;
 		case "string":
 			div.find(".value").show();
-			div.find(".bool_value").hide();
-			div.find(".double_value").hide();
-			div.find(".mixed_value").hide();
 			break;
 		case "boolean":
-			div.find(".value").hide();
 			div.find(".bool_value").show();
-			div.find(".double_value").hide();
-			div.find(".mixed_value").hide();
 			break;
 		case "null":
-			div.find(".value").hide();
-			div.find(".bool_value").hide();
-			div.find(".double_value").hide();
-			div.find(".mixed_value").hide();
 			break;
 		case "mixed":
 			div.find("select[name='format']").show();
-			div.find(".value").hide();
-			div.find(".bool_value").hide();
-			div.find(".double_value").hide();
 			div.find(".mixed_value").show();
 			break;
 	}
@@ -410,6 +407,11 @@ function setValueWithData(div, data) {
 	
 	switch(dataType) {
 		case "integer":
+			div.find("[name='integer_value']").val(value);
+			break;
+		case "long":
+			div.find("[name='long_value']").val(value);
+			break;
 		case "float":
 		case "double":
 			div.find("[name='double_value']").val(value);
@@ -555,6 +557,8 @@ function fieldOpNew(link, id, field, recordIndex) {
 					"keep":div.find("input[name='keep']:checked").val(),
 					"data_type":div.find("[name='data_type']").val(),
 					"value":div.find("[name='value']").val(),
+					"integer_value":div.find("[name='integer_value']").val(),
+					"long_value":div.find("[name='long_value']").val(),
 					"double_value":div.find("[name='double_value']").val(),
 					"bool_value":div.find("[name='bool_value']").val(),
 					"mixed_value":div.find("[name='mixed_value']").val(),
@@ -593,6 +597,8 @@ function fieldOpNew(link, id, field, recordIndex) {
 				"keep":div.find("input[name='keep']:checked").val(),
 				"data_type":div.find("[name='data_type']").val(),
 				"value":div.find("[name='value']").val(),
+				"integer_value":div.find("[name='integer_value']").val(),
+				"long_value":div.find("[name='long_value']").val(),
 				"double_value":div.find("[name='double_value']").val(),
 				"bool_value":div.find("[name='bool_value']").val(),
 				"mixed_value":div.find("[name='mixed_value']").val(),
@@ -681,6 +687,8 @@ function fieldOpUpdate(link, id, field, recordIndex) {
 						"newname": div.find("input[name='newname']").val(),
 						"data_type":div.find("[name='data_type']").val(),
 						"value":div.find("[name='value']").val(),
+						"integer_value":div.find("[name='integer_value']").val(),
+						"long_value":div.find("[name='long_value']").val(),
 						"double_value":div.find("[name='double_value']").val(),
 						"bool_value":div.find("[name='bool_value']").val(),
 						"mixed_value":div.find("[name='mixed_value']").val(),
@@ -718,6 +726,8 @@ function fieldOpUpdate(link, id, field, recordIndex) {
 					"newname": div.find("input[name='newname']").val(),
 					"data_type":div.find("[name='data_type']").val(),
 					"value":div.find("[name='value']").val(),
+					"integer_value":div.find("[name='integer_value']").val(),
+					"long_value":div.find("[name='long_value']").val(),
 					"double_value":div.find("[name='double_value']").val(),
 					"bool_value":div.find("[name='bool_value']").val(),
 					"mixed_value":div.find("[name='mixed_value']").val(),

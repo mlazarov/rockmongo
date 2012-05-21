@@ -51,7 +51,7 @@ class MCollection {
 	 * @param string $collection collection name
 	 */
 	static function info(MongoDB $db, $collection) {
-		$ret = $db->execute('function (coll){return db.getCollection(coll).exists();}', array( $collection ));
+		$ret = $db->command(array( "collStats" => $collection ));
 		
 		if (!$ret["ok"]) {
 			exit("There is something wrong:<font color=\"red\">{$ret['errmsg']}</font>, please refresh the page to try again.");

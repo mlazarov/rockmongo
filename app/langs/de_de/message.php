@@ -184,13 +184,13 @@ $message["switch_hosts"] = "Host wechseln";
 /** About **/
 $message["about_content"] = '<strong class="big">RockMongo</strong> ist ein in PHP5 geschriebenes MongoDB Administrationswerkzeug.
 
-<p>Siehe <a href="http://code.google.com/p/rock-php/wiki/rock_mongo" target="_blank">http://code.google.com/p/rock-php/wiki/rock_mongo</a> für mehr Details.</p>
+<p>Siehe <a href="http://rockmongo.com" target="_blank">http://rockmongo.com</a> für mehr Details.</p>
 
 <p>Wenn Sie Fragen haben sollten, können Sie mir eine E-Mail senden: <a href="mailto:iwind.liu@gmail.com">iwind.liu@gmail.com</a> .</p>';
 
 /** Login **/
 $message["loginandrock"] = "Login und abrocken";
 $message["changeconfig"] = "Vielleicht möchten Sie ihren Benutzernamen und Passwort in config.php ändern.";
-$message["rockmongocredits"] = "Powered by RockMongo v" . (ROCK_MONGO_VERSION) . ", <a href=\"http://code.google.com/p/rock-php/downloads/list\" target=\"_blank\">auf neue Version prüfen.</a>";
+$message["rockmongocredits"] = "Powered by RockMongo v" . (ROCK_MONGO_VERSION) . ", <a href=\"http://rockmongo.com/?action=downloads\" target=\"_blank\">auf neue Version prüfen.</a>";
 
 ?>

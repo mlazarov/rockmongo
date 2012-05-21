@@ -64,7 +64,7 @@ $message["logout"] = "Sair";
 /** Sobre **/
 $message["about_content"] = '<strong class="big">RockMongo</strong> é uma ferramenta de administração para o MongoDB, escrito em PHP 5.
 
-<p>Visite <a href="http://code.google.com/p/rock-php/wiki/rock_mongo" target="_blank">http://code.google.com/p/rock-php/wiki/rock_mongo</a> para mais detalhes.</p>
+<p>Visite <a href="http://rockmongo.com" target="_blank">http://rockmongo.com</a> para mais detalhes.</p>
 
 <p>Se vocêem alguma dúvida, me envie um email: <a href="mailto:iwind.liu@gmail.com">iwind.liu@gmail.com</a> .</p>';
 

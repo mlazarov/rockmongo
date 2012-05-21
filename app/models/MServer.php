@@ -7,8 +7,9 @@ class MServer {
 	private $_mongoUser = "";
 	private $_mongoPass = "";
 	private $_mongoAuth = false;
-	private $_mongoTimeout = 30;
+	private $_mongoTimeout = 0;
 	private $_mongoDb;
+	private $_mongoOptions = array();
 	private $_controlAuth = true;
 	private $_controlUsers = array();
 	private $_uiDefaultDb;//not be used yet
@@ -58,6 +59,9 @@ class MServer {
 					break;
 				case "mongo_db":
 					$this->_mongoDb = $value;
+					break;
+				case "mongo_options":
+					$this->_mongoOptions = $value;
 					break;
 				case "control_auth":
 					$this->_controlAuth = $value;
@@ -227,7 +231,21 @@ class MServer {
 				$db = "admin";
 			}
 		}
-		$this->_mongo = new Mongo($this->_mongoHost . ":" . $this->_mongoPort);
+		$server = $this->_mongoHost . ":" . $this->_mongoPort;
+		if (!$this->_mongoPort) {
+			$server = $this->_mongoHost;
+		}
+		try {
+			$this->_mongo = new Mongo($server, $this->_mongoOptions);
+			$this->_mongo->setSlaveOkay(true);
+		}
+		catch(Exception $e) {
+			echo "Unable to connect MongoDB, please check your configurations. MongoDB said:" . $e->getMessage() . ".";
+			exit();
+		} 
+		
+		// changing timeout to the new value
+		MongoCursor::$timeout = $this->_mongoTimeout;
 		
 		//auth by mongo
 		if ($this->_mongoAuth) {

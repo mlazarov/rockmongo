@@ -74,7 +74,7 @@ $message["logout"] = "退出";
 $message["loginandrock"] = "登录";
 $message["about_content"] = '<strong class="big">RockMongo</strong>是可视化的MongoDB管理工具.
 
-<p>请访问 <a href="http://code.google.com/p/rock-php/wiki/rock_mongo" target="_blank">http://code.google.com/p/rock-php/wiki/rock_mongo</a> 获取更多信息.</p>
+<p>请访问 <a href="http://rockmongo.com" target="_blank">http://rockmongo.com</a> 获取更多信息.</p>
 
 <p>如果有任何问题和反馈，请发送邮件到：<a href="mailto:iwind.liu@gmail.com">iwind.liu@gmail.com</a> .</p>';
 

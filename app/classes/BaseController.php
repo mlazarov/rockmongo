@@ -54,23 +54,25 @@ class BaseController extends RExtController {
 		
 		//exception handler
 		set_exception_handler(array($this, "exceptionHandler"));
-
-		//if user is loged in?
-		$server = MServer::serverWithIndex(xi("host"));
-		
-		//filter server plugins
-		if (class_exists("RFilter")) {
-			RFilter::apply("SERVER_FILTER", $server);
-		}
-		
-		//if auth is disabled
-		if ($server && !$server->mongoAuth() && !$server->controlAuth()) {
-			MUser::login("rockmongo_memo", "rockmongo_memo", xi("host"), "admin", 10800);
-		}
 		
 		$this->_admin = MUser::userInSession();
 		if (!$this->_admin) {
-			$this->redirect("login.index");
+			//if user is loged in?
+			$server = MServer::serverWithIndex(xi("host"));
+			
+			//filter server plugins
+			if (class_exists("RFilter")) {
+				RFilter::apply("SERVER_FILTER", $server);
+			}
+			
+			//if auth is disabled
+			if ($server && !$server->mongoAuth() && !$server->controlAuth()) {
+				MUser::login("rockmongo_memo", "rockmongo_memo", xi("host"), "admin", 10800);
+				$this->_admin = MUser::userInSession();
+			}
+			else {
+				$this->redirect("login.index", array( "host" =>  xi("host")));
+			}
 		}
 		if (!$this->_admin->validate()) {
 			$this->redirect("login.index", array( "host" => $this->_admin->hostIndex() ));
@@ -115,15 +117,33 @@ class BaseController extends RExtController {
 	 * @param string $dataType data type
 	 * @param string $format string format
 	 * @param string $value string value
+	 * @param integer $integerValue integer value
+	 * @param long $longValue long value
 	 * @param string $doubleValue float value
 	 * @param string $boolValue boolea value
 	 * @param string $mixedValue mixed value (array or object)
+	 * @return mixed
 	 * @throws Exception
 	 */
-	protected function _convertValue($mongodb, $dataType, $format, $value, $doubleValue, $boolValue, $mixedValue) {
+	protected function _convertValue($mongodb, $dataType, $format, $value, $integerValue, $longValue, $doubleValue, $boolValue, $mixedValue) {
 		$realValue = null;
 		switch ($dataType) {
 			case "integer":
+				if (class_exists("MongoInt32")) {
+					$realValue = new MongoInt32($integerValue);
+				}
+				else {
+					$realValue = intval($realValue);
+				}
+				break;
+			case "long":
+				if (class_exists("MongoInt64")) {
+					$realValue = new MongoInt64($longValue);
+				}
+				else {
+					$realValue = $longValue;
+				}
+				break;
 			case "float":
 			case "double":
 				$realValue = doubleval($doubleValue);

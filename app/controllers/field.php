@@ -104,10 +104,9 @@ class FieldController extends BaseController {
 				}
 				while(cursor.hasNext()) {
 					var row = cursor.next();
-					var newobj = { $unset: {}, $set:{} };
-					newobj["$unset"][field] = 1;
+					var newobj = { $rename: {} };
 					if (typeof(row[newname]) == "undefined" || !keep) {
-						newobj["$set"][newname] = (typeof(row[field])!="undefined") ? row[field] : null;
+						newobj["$rename"][field] = newname;
 					}
 					if (typeof(row["_id"]) != "undefined") {
 						db.getCollection(coll).update({ _id:row["_id"] }, newobj);
@@ -132,6 +131,8 @@ class FieldController extends BaseController {
 		$dataType = xn("data_type");
 		$value = xn("value");
 		$boolValue = xn("bool_value");
+		$integerValue = xn("integer_value");
+		$longValue = xn("long_value");
 		$doubleValue = xn("double_value");
 		$mixedValue = xn("mixed_value");
 		$format = x("format");
@@ -144,10 +145,18 @@ class FieldController extends BaseController {
 		
 		$realValue = null;
 		try {
-			$realValue = $this->_convertValue($this->_mongodb, $dataType, $format, $value, $doubleValue, $boolValue, $mixedValue);
+			$realValue = $this->_convertValue($this->_mongodb, $dataType, $format, $value, $integerValue, $longValue, $doubleValue, $boolValue, $mixedValue);
 		} catch (Exception $e) {
 			$this->_outputJson(array( "code" => 400, "message" => $e->getMessage()));
 		}
+		
+		$fieldType = "";
+		if ($dataType == "integer") {
+			$fieldType = "integer";
+		} else if ($dataType == "long") {
+			$fieldType = "long";
+		}
+		
 		if (!$keep) {
 			if ($id) {
 				$db->selectCollection($this->collection)->update(array(
@@ -159,7 +168,17 @@ class FieldController extends BaseController {
 			}
 			$this->_outputJson(array( "code" => 200 ));
 		}
-		$ret = $db->execute('function (coll, newname, value, id, keep){
+		$ret = $db->execute('function (coll, newname, fieldType, value, id, keep){
+				if (typeof(value) != "object") {
+					if (fieldType == "integer") {
+						if (typeof(NumberInt) != "undefined") {
+							value = NumberInt(value);
+						}
+					} else if (fieldType == "long") {
+						value = NumberLong(value);
+					}
+				}
+				
 				var cursor;
 				if (id) {
 					cursor = db.getCollection(coll).find({_id:id});
@@ -180,8 +199,13 @@ class FieldController extends BaseController {
 						db.getCollection(coll).update(row, newobj);
 					}
 				}
-			}', array($this->collection, $newname, $realValue, rock_real_id($id), $keep ? true:false));
-		$this->_outputJson(array( "code" => 200 ));
+			}', array($this->collection, $newname, $fieldType, $realValue, rock_real_id($id), $keep ? true:false));
+		if ($ret["ok"]) {
+			$this->_outputJson(array( "code" => 200 ));
+		}
+		else {
+			$this->_outputJson(array( "code" => 500, "message" => $ret["errmsg"] ));
+		}
 	}	
 	
 	/**
@@ -202,6 +226,11 @@ class FieldController extends BaseController {
 					$type = "boolean";
 					break;
 				case "integer":
+					$type = "integer";
+					break;
+				case "long":
+					$type = "long";
+					break;
 				case "float":
 				case "double":
 					$type = "double";
@@ -211,6 +240,13 @@ class FieldController extends BaseController {
 					break;
 				case "array":
 				case "object":
+					// int64 is returned as object (Kyryl Bilokurov <kyryl.bilokurov@gmail.com>)
+					if (get_class($data) == "MongoInt64") {
+						$type = "long";
+					} else {
+						$type = "mixed";
+					}
+					break;
 				case "resource":
 					$type = "mixed";
 					break;
@@ -228,7 +264,8 @@ class FieldController extends BaseController {
 		$this->_outputJson(array(
 			"code" => 200,
 			"type" => $type,
-			"value" => $data,
+			 // long requires special handling (Kyryl Bilokurov <kyryl.bilokurov@gmail.com>)
+			"value" => ($type=="long") ? $data->__toString() : $data,
 			"represent" => $represent,
 			"format" => $format
 		));
@@ -245,6 +282,8 @@ class FieldController extends BaseController {
 		$dataType = xn("data_type");
 		$value = xn("value");
 		$boolValue = xn("bool_value");
+		$integerValue = xn("integer_value");
+		$longValue = xn("long_value");
 		$doubleValue = xn("double_value");
 		$mixedValue = xn("mixed_value");
 		$format = xn("format");
@@ -257,31 +296,62 @@ class FieldController extends BaseController {
 		
 		$realValue = null;
 		try {
-			$realValue = $this->_convertValue($this->_mongodb, $dataType, $format, $value, $doubleValue, $boolValue, $mixedValue);
+			$realValue = $this->_convertValue($this->_mongodb, $dataType, $format, $value, $integerValue, $longValue, $doubleValue, $boolValue, $mixedValue);
 		} catch (Exception $e) {
 			$this->_outputJson(array( "code" => 400, "message" => $e->getMessage()));
 		}
+		
+		$fieldType = "";
+		if ($dataType=="integer") {
+			$fieldType = "integer";
+		} else if ($dataType == "long") {
+			$fieldType = "long";
+		}
+		$ret = array();
 		if ($id) {
-			$ret = $db->execute('function (collection, id, field, value) {
+			$ret = $db->execute('function (collection, id, field, fieldType, value) {
 				var col = db.getCollection(collection);
 				var obj = {
 					"$set": {}
 				};
+				if (typeof(value) != "object") {
+					if (fieldType == "integer") {
+						if (typeof(NumberInt) != "undefined") {
+							value = NumberInt(value);
+						}
+					} else if (fieldType=="long") {
+						value = NumberLong(value);
+					}
+				}
 				obj["$set"][field] = value;
 				col.update({ "_id": id }, obj, false, false);
-			}', array($this->collection, rock_real_id($id), $newname, $realValue));
+			}', array($this->collection, rock_real_id($id), $newname, $fieldType, $realValue));
 		}
 		else {
-			$ret = $db->execute('function (collection, field, value) {
+			$ret = $db->execute('function (collection, field, fieldType, value) {
 				var col = db.getCollection(collection);
 				var obj = {
 					"$set": {}
 				};
+				if (typeof(value) != "object") {
+					if (fieldType=="integer") {
+						if (typeof(NumberInt) != "undefined") {
+							value = NumberInt(value);
+						}
+					} else if (fieldType=="long") {
+						value = NumberLong(value);
+					}
+				}
 				obj["$set"][field] = value;
 				col.update({}, obj, false, true);
-			}', array($this->collection, $newname, $realValue));
+			}', array($this->collection, $newname, $fieldType, $realValue));
 		}
-		$this->_outputJson(array( "code" => 200 ));
+		if ($ret["ok"]) {
+			$this->_outputJson(array( "code" => 200 ));
+		}
+		else {
+			$this->_outputJson(array( "code" => 500, "message" => $ret["errmsg"] ));
+		}
 	}
 	
 	function doIndexes() {
